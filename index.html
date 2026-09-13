@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07150d">
+<meta name="description" content="Portal do Exército Brasileiro — servidor e comunidade.">
+<title>Exército Brasileiro | Portal</title>
+<style>
+:root{
+  --green:#0b5d2a; --green2:#123f25; --dark:#06100a; --dark2:#0b1710;
+  --gold:#f2c400; --text:#f4f7f4; --muted:#aebbb2; --card:rgba(15,31,21,.86);
+  --border:rgba(242,196,0,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#06100a,#0a1c11 55%,#06100a);color:var(--text);line-height:1.6}
+a{text-decoration:none;color:inherit}
+.container{width:min(1120px,92%);margin:auto}
+header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(4,12,8,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav{height:70px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.5px}
+.brand-mark{width:42px;height:42px;border-radius:12px;object-fit:cover;border:1px solid rgba(242,196,0,.4)}
+.brand span{font-size:14px}
+.nav-links{display:flex;gap:22px;font-size:14px;color:#dbe5de}
+.nav-links a:hover{color:var(--gold)}
+.menu{display:none;background:none;border:0;color:white;font-size:27px}
+.hero{min-height:760px;padding:120px 0 70px;display:grid;place-items:center;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 35%,rgba(15,108,48,.35),transparent 45%),linear-gradient(90deg,rgba(3,10,6,.95),rgba(3,10,6,.48))}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center}
+.eyebrow{display:inline-flex;gap:8px;padding:7px 12px;border:1px solid var(--border);border-radius:999px;background:rgba(0,0,0,.25);color:#dbe8df;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+h1{font-size:clamp(42px,7vw,76px);line-height:.98;margin:20px 0 18px;letter-spacing:-2px}
+h1 strong{color:var(--gold)}
+.hero p{color:#c6d0c9;max-width:600px;font-size:17px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{padding:13px 19px;border-radius:12px;font-weight:800;border:1px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
+.btn-primary{background:var(--gold);color:#10160f}
+.btn-primary:hover{filter:brightness(1.07)}
+.btn-outline{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.04)}
+.hero-image{width:100%;aspect-ratio:1/1;border-radius:28px;object-fit:cover;border:1px solid rgba(242,196,0,.25);box-shadow:0 25px 80px rgba(0,0,0,.45)}
+section{padding:85px 0}
+.section-head{text-align:center;margin-bottom:38px}
+.section-head .tag{color:var(--gold);font-size:12px;font-weight:900;letter-spacing:2px;text-transform:uppercase}
+.section-head h2{font-size:36px;margin:8px 0}
+.section-head p{color:var(--muted);max-width:680px;margin:auto}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--card);border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:25px;box-shadow:0 15px 50px rgba(0,0,0,.18)}
+.card .icon{font-size:30px;margin-bottom:12px}
+.card h3{margin-bottom:8px}
+.card p{color:var(--muted);font-size:14px}
+.hierarchy{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.rank{padding:20px;border-radius:15px;background:linear-gradient(145deg,#102519,#0a160e);border:1px solid var(--border);text-align:center}
+.rank b{display:block;color:var(--gold);margin-bottom:4px}
+.rank small{color:#b7c5bc}
+.recruit{background:linear-gradient(135deg,#0b4f25,#0a2113);border:1px solid var(--border);border-radius:26px;padding:42px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:30px}
+.recruit p{color:#c8d7cd;margin-top:8px}
+footer{border-top:1px solid var(--border);padding:35px 0;color:#95a49a;font-size:13px}
+.footer-row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;place-items:center;padding:18px;z-index:100}
+.modal.open{display:grid}
+.modal-box{width:min(560px,100%);background:#0b1810;border:1px solid var(--border);border-radius:22px;padding:25px}
+.modal-box h3{font-size:25px;margin-bottom:8px}
+.form{display:grid;gap:12px;margin-top:18px}
+input,textarea,select{width:100%;background:#07110b;color:white;border:1px solid rgba(255,255,255,.12);padding:13px;border-radius:11px;font:inherit}
+textarea{min-height:110px;resize:vertical}
+.close{float:right;border:0;background:none;color:#aaa;font-size:25px;cursor:pointer}
+.note{font-size:12px;color:#8e9e94;margin-top:8px}
+@media(max-width:800px){
+  .nav-links{display:none;position:absolute;top:70px;left:0;right:0;background:#07120b;padding:18px;flex-direction:column;border-bottom:1px solid var(--border)}
+  .nav-links.show{display:flex}.menu{display:block}
+  .hero{min-height:auto;padding:120px 0 55px}
+  .hero-grid{grid-template-columns:1fr;gap:30px}
+  .hero-image{max-height:480px}
+  .cards{grid-template-columns:1fr}
+  .hierarchy{grid-template-columns:repeat(2,1fr)}
+  .recruit{grid-template-columns:1fr;padding:28px}
+}
+@media(max-width:430px){
+  .hierarchy{grid-template-columns:1fr}
+  h1{font-size:47px}
+  section{padding:65px 0}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="#inicio">
+      <img class="brand-mark" src="hero.png" alt="Emblema">
+      <span>EXÉRCITO BRASILEIRO</span>
+    </a>
+    <button class="menu" aria-label="Abrir menu" onclick="toggleMenu()">☰</button>
+    <nav class="nav-links" id="navLinks">
+      <a href="#inicio" onclick="closeMenu()">Início</a>
+      <a href="#sobre" onclick="closeMenu()">Sobre</a>
+      <a href="#hierarquia" onclick="closeMenu()">Hierarquia</a>
+      <a href="#recrutamento" onclick="closeMenu()">Recrutamento</a>
+      <a href="#suporte" onclick="closeMenu()">Suporte</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">🇧🇷 Disciplina • Lealdade • Honra</span>
+      <h1>EXÉRCITO<br><strong>BRASILEIRO</strong></h1>
+      <p>Portal oficial da comunidade. Conheça nossa estrutura, participe do recrutamento e mantenha-se informado sobre as atividades do servidor.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#recrutamento">🎖️ Quero me alistar</a>
+        <a class="btn btn-outline" href="#sobre">Conhecer o servidor</a>
+      </div>
+    </div>
+    <img class="hero-image" src="hero.png" alt="Arte do Exército Brasileiro">
+  </div>
+</section>
+
+<section id="sobre">
+  <div class="container">
+    <div class="section-head">
+      <span class="tag">Nossa missão</span>
+      <h2>Uma comunidade organizada</h2>
+      <p>Um espaço voltado à organização, treinamento, eventos e interação entre os membros da comunidade.</p>
+    </div>
+    <div class="cards">
+      <article class="card"><div class="icon">🎖️</div><h3>Hierarquia</h3><p>Estrutura organizada com cargos, funções e responsabilidades bem definidas.</p></article>
+      <article class="card"><div class="icon">🛡️</div><h3>Disciplina</h3><p>Valorizamos respeito, organização e comportamento adequado dentro da comunidade.</p></article>
+      <article class="card"><div class="icon">🏆</div><h3>Eventos</h3><p>Participe de treinamentos, avaliações, operações e atividades especiais.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="hierarquia">
+  <div class="container">
+    <div class="section-head">
+      <span class="tag">Organização</span>
+      <h2>Hierarquia</h2>
+      <p>Exemplo de estrutura que você pode personalizar conforme os cargos do seu servidor.</p>
+    </div>
+    <div class="hierarchy">
+      <div class="rank"><b>👑 Alto Comando</b><small>Comando superior</small></div>
+      <div class="rank"><b>⭐ Oficiais Generais</b><small>Alta oficialidade</small></div>
+      <div class="rank"><b>🪖 Oficiais</b><small>Comando e liderança</small></div>
+      <div class="rank"><b>🎗️ Praças</b><small>Efetivo operacional</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="recrutamento">
+  <div class="container">
+    <div class="recruit">
+      <div>
+        <span class="tag">Recrutamento aberto</span>
+        <h2>Pronto para fazer parte?</h2>
+        <p>Preencha o formulário e envie sua candidatura para a equipe responsável.</p>
+      </div>
+      <button class="btn btn-primary" onclick="openModal()">📋 Fazer inscrição</button>
+    </div>
+  </div>
+</section>
+
+<section id="suporte">
+  <div class="container">
+    <div class="section-head">
+      <span class="tag">Central de atendimento</span>
+      <h2>Precisa de ajuda?</h2>
+      <p>Entre em contato com a equipe pelo Discord para dúvidas, suporte ou atendimento.</p>
+      <div class="actions" style="justify-content:center">
+        <!-- TROQUE O LINK ABAIXO PELO CONVITE DO SEU DISCORD -->
+        <a class="btn btn-primary" href="https://discord.com/" target="_blank" rel="noopener">💬 Entrar no Discord</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer-row">
+    <span>© <span id="year"></span> Exército Brasileiro — Comunidade.</span>
+    <span>🇧🇷 Disciplina • Lealdade • Honra</span>
+  </div>
+</footer>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal()">×</button>
+    <h3>📋 Recrutamento</h3>
+    <p class="note">Este formulário é uma demonstração. Para receber as respostas no Discord, será necessário conectar um backend, webhook ou formulário externo.</p>
+    <form class="form" onsubmit="submitForm(event)">
+      <input id="nome" required placeholder="Seu nome">
+      <input id="discord" required placeholder="Seu usuário do Discord">
+      <select id="area" required>
+        <option value="">Selecione seu interesse</option>
+        <option>Recrutamento</option><option>Oficial</option><option>Praça</option><option>Suporte</option>
+      </select>
+      <textarea id="motivo" required placeholder="Por que deseja entrar?"></textarea>
+      <button class="btn btn-primary" type="submit">Enviar candidatura</button>
+    </form>
+  </div>
+</div>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+function toggleMenu(){document.getElementById("navLinks").classList.toggle("show")}
+function closeMenu(){document.getElementById("navLinks").classList.remove("show")}
+function openModal(){document.getElementById("modal").classList.add("open")}
+function closeModal(){document.getElementById("modal").classList.remove("open")}
+function submitForm(e){
+  e.preventDefault();
+  alert("Candidatura preenchida! Para enviar os dados de verdade para o Discord, conecte um webhook/backend.");
+  closeModal();
+  e.target.reset();
+}
+</script>
+</body>
+</html>
